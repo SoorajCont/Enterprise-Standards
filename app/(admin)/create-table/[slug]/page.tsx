@@ -52,8 +52,23 @@ const Table = ({ params: { slug } }: { params: { slug: string } }) => {
       (field) => field.headerType === "output"
     ).length;
 
-    if (outputCount === 0 || outputCount > 3) {
-      alert("At least one output field is required and cannot exceed 3.");
+    if (outputCount === 0) {
+      alert("At least one output field is required.");
+      return;
+    } else if (outputCount > 3) {
+      alert("You can only have 3 output fields.");
+      return;
+    }
+
+    const inputCount: number = inputFields.filter(
+      (field) => field.headerType === "input"
+    ).length;
+
+    if (inputCount === 0) {
+      alert("At least one input field is required.");
+      return;
+    } else if (inputCount > 7) {
+      alert("You can only have 7 input fields.");
       return;
     }
 
@@ -86,10 +101,13 @@ const Table = ({ params: { slug } }: { params: { slug: string } }) => {
       (field) => field.headerType === "output"
     ).length;
 
-    if (inputCount > 7 || outputCount > 3) {
-      alert("You can only have 7 input fields and 3 output fields.");
+    if (inputCount > 7) {
+      alert("You can only have 7 input fields.");
+      return;
+    } else if (outputCount > 3) {
+      alert("You can only have 3 output fields.");
+      return;
     }
-
     const newIsInput = inputFields.map((field) => field.headerType === "input");
     setIsInput(newIsInput);
   }, [inputFields, setInputFields]);
